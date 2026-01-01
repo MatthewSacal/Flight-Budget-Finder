@@ -1,0 +1,45 @@
+<!-- Basic Prototype: Flight Budget Finder -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Budget Finder</title>
+</head>
+<body>
+  <h1>How Far Can You Fly?</h1>
+  <label for="budget">Enter your budget (€):</label>
+  <input type="number" id="budget" placeholder="Example: 200" />
+  <button onclick="searchFlights()">Find Flights</button>
+
+  <div id="results"></div>
+
+  <script>
+    function searchFlights() {
+      const budget = document.getElementById('budget').value;
+      document.getElementById('results').innerText = `Searching for flights under €${budget}...`;
+      // Fake demo results for now
+      const results = [
+        { destination: 'London', price: 80 },
+        { destination: 'Paris', price: 120 },
+        { destination: 'Berlin', price: 160 },
+        { destination: 'Rome', price: 200 }
+      ];
+
+      const affordable = results.filter(f => f.price <= budget);
+
+      if (affordable.length === 0) {
+        document.getElementById('results').innerText = 'No flights found within your budget 😢';
+        return;
+      }
+
+      let output = '<h3>Flights you can afford:</h3><ul>';
+      affordable.forEach(f => {
+        output += `<li>${f.destination} - €${f.price}</li>`;
+      });
+      output += '</ul>';
+      document.getElementById('results').innerHTML = output;
+    }
+  </script>
+</body>
+</html>
